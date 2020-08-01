@@ -27,7 +27,7 @@ async def progress_for_pyrogram(
 ):
     now = time.time()
     diff = now - start
-    if round(diff % 10.00) == 0 or current == total:
+    if round(diff % 5.00) == 0 or current == total:
         # if round(current / total * 100, 0) % 5 == 0:
         percentage = current * 100 / total
         speed = current / diff
@@ -37,18 +37,20 @@ async def progress_for_pyrogram(
 
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
+        time_to_completion = TimeFormatter(milliseconds=time_to_completion)
 
-        progress = "[{0}{1}] \nP: {2}%\n".format(
+        progress = "[{0}{1}] \n<b>Progress:</b> <i>{2}%</i>\n".format(
             ''.join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),
             ''.join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]),
             round(percentage, 2))
 
-        tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\n".format(
+        tmp = progress + "<b>Speed:</b> <i>{2}</i>/s\n<b>Uploaded:</b> <i>{0}</i>\n<b>Total Size:</b> <i>{1}</i>\n<b>Remaining Time:</b> <i>{4}</i>\n<b>Estimated Time:</b> <i>{3}</i>".format(
             humanbytes(current),
             humanbytes(total),
             humanbytes(speed),
             # elapsed_time if elapsed_time != '' else "0 s",
-            estimated_total_time if estimated_total_time != '' else "0 s"
+            estimated_total_time if estimated_total_time != '' else "0 s",
+            time_to_completion if time_to_completion != '' else  "0 s"
         )
         try:
             if not message.photo:
