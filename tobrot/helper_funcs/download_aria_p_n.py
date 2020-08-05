@@ -460,7 +460,7 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 msg += f"\n<b>GID:</b> <code>{gid}</code>"
                 inline_keyboard = []
                 ikeyboard = []
-                ikeyboard.append(InlineKeyboardButton("😔Cancel This Process😔", callback_data=(f"cancel {gid}").encode("UTF-8")))
+                ikeyboard.append(InlineKeyboardButton("😔 Cancel This Process 😔", callback_data=(f"cancel {gid}").encode("UTF-8")))
                 inline_keyboard.append(ikeyboard)
                 reply_markup = InlineKeyboardMarkup(inline_keyboard)
                 #msg += reply_markup
